@@ -8,11 +8,16 @@
           outlined
           rows=20
           v-model="documents"
+          @click="clickHTMLArea"
         >
         </v-textarea>
       </v-col>
       <v-col sm="1"  align="center">
-        <v-btn>変換</v-btn>
+        <v-btn 
+          class="primary"
+          @click="clickConversionBtn">
+          変換
+        </v-btn>
       </v-col>
       <v-col sm="4.5" class="mr-2">
         <h2 class="mb-2" align="center">TEXT</h2>
@@ -20,6 +25,7 @@
           outlined
           rows=20
           v-model="documents"
+          v-show="showText"
         >
         </v-textarea>
       </v-col>
@@ -39,7 +45,17 @@ export default Vue.extend({
   },
 
   data: () => ({
-    documents: ''
+    documents: '',
+    showText: false
   }),
+
+  methods: {
+    clickHTMLArea () {
+      this.showText = false
+    },
+    clickConversionBtn () {
+      this.showText = true
+    }
+  }
 });
 </script>
