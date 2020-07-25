@@ -1,6 +1,29 @@
 <template>
   <v-app>
     <Header />
+    <v-row>
+      <v-col sm="4.5" class="ml-2">
+        <h2 class="mb-2" align="center">HTML</h2>
+        <v-textarea
+          outlined
+          rows=20
+          v-model="documents"
+        >
+        </v-textarea>
+      </v-col>
+      <v-col sm="1"  align="center">
+        <v-btn>変換</v-btn>
+      </v-col>
+      <v-col sm="4.5" class="mr-2">
+        <h2 class="mb-2" align="center">TEXT</h2>
+        <v-textarea
+          outlined
+          rows=20
+          v-model="documents"
+        >
+        </v-textarea>
+      </v-col>
+    </v-row>
   </v-app>
 </template>
 
@@ -16,7 +39,7 @@ export default Vue.extend({
   },
 
   data: () => ({
-    //
+    documents: ''
   }),
 });
 </script>
