@@ -7,7 +7,7 @@
         <v-textarea
           outlined
           rows=20
-          v-model="documents"
+          v-model="html"
           @click="clickHTMLArea"
         >
         </v-textarea>
@@ -24,7 +24,7 @@
         <v-textarea
           outlined
           rows=20
-          v-model="documents"
+          v-model="text"
           v-show="showText"
         >
         </v-textarea>
@@ -45,7 +45,8 @@ export default Vue.extend({
   },
 
   data: () => ({
-    documents: '',
+    html: '',
+    text: '',
     showText: false
   }),
 
@@ -54,6 +55,7 @@ export default Vue.extend({
       this.showText = false
     },
     clickConversionBtn () {
+      this.text = this.html.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g,'')
       this.showText = true
     }
   }
