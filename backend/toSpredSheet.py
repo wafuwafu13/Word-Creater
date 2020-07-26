@@ -1,7 +1,6 @@
 import gspread
 import json
 import os
-from docx import Document
 from os.path import join, dirname
 from dotenv import load_dotenv
 
