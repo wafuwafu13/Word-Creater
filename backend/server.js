@@ -26,12 +26,13 @@ connection.connect((err) => {
     console.log('success to connect db')
 })
 
-app.get('/api/:key', (req, res) => {
-    console.log('from frontend params is: ' + req.params.key)
+app.get('/save/:name/:text', (req, res) => {
+    console.log('from frontend params: name => ' + req.params.name)
+    console.log('from frontend params: text => ' + req.params.text)
 
     connection.query({
-        sql: 'INSERT INTO documents (text) values (?)',
-        values: [req.params.key]
+        sql: 'INSERT INTO documents (name, text) values (?, ?)',
+        values: [req.params.name, req.params.text]
     }, (error, results) => {
         console.log(results)
     })
