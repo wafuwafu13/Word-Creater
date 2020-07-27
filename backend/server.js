@@ -44,5 +44,17 @@ app.get('/api/:key', (req, res) => {
     // })
 })
 
+app.get('/create/:key', (req, res) => {
+    let { PythonShell } = require('python-shell')
+    let pyshell = new PythonShell('test.py')
+    console.log('from frontend params is: ' + req.params.key)
+
+    pyshell.send(req.params.key)
+
+    pyshell.on('message', function (data) {
+        console.log(data + ' from python');
+    });
+})
+
 app.listen(3000)
 console.log('work server port is 3000')
