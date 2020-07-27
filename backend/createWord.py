@@ -3,11 +3,15 @@ from docx import Document
 from dotenv import load_dotenv
 import os
 from os.path import join, dirname
+import sys
 
 # envの設定
 load_dotenv(verbose=True)
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
+
+filename = sys.stdin.readline()
+print('filename =>', filename.strip())
 
 con = MySQLdb.connect(
     host = os.environ.get("DB_HOST"),
@@ -17,11 +21,15 @@ con = MySQLdb.connect(
 )
 
 cur = con.cursor()
-sql = "select text from documents where id = %s"
-cur.execute(sql, (1,))
+sql = "select text from documents where name = %s"
+cur.execute(sql, (filename.strip(),))
 
 rows = cur.fetchall()
 
 document = Document()
-document.add_paragraph(rows[0][0])
-document.save('python-docs-test.docx')
+print('text =>', rows[0][0])
+text = rows[0][0]
+document.add_paragraph(text)
+document.save(filename.strip()+'.docx')
+
+print('success')

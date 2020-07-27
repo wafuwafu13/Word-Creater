@@ -26,6 +26,19 @@ connection.connect((err) => {
     console.log('success to connect db')
 })
 
+app.get('/word/:filename', (req, res) => {
+    let filename = req.params.filename
+    console.log('from frontend params: filename => ' + filename)
+    let { PythonShell } = require('python-shell')
+    let pyshell = new PythonShell('createWord.py')
+
+    pyshell.send(filename)
+
+    pyshell.on('message', function (data) {
+        console.log(data);
+    });
+})
+
 // ファイル名、テキストをDBに保存
 app.get('/:name/:text', (req, res) => {
     console.log('from frontend params: name => ' + req.params.name)
@@ -62,18 +75,6 @@ app.get('/filenames', (req, res) => {
         res.header('Content-Type', 'application/json; charset=utf-8')
         res.send(filenames)
     })
-})
-
-app.get('/create/:key', (req, res) => {
-    let { PythonShell } = require('python-shell')
-    let pyshell = new PythonShell('test.py')
-    console.log('from frontend params is: ' + req.params.key)
-
-    pyshell.send(req.params.key)
-
-    pyshell.on('message', function (data) {
-        console.log(data + ' from python');
-    });
 })
 
 app.listen(3000)
